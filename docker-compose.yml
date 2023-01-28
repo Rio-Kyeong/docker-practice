@@ -3,8 +3,8 @@ version: '3.7'
 services:
   database-mysql:
     image: mysql/mysql-server:8.0.23
-    container_name: mysql_db
     platform: linux/amd64
+    container_name: mysql_db
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
