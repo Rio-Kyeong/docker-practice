@@ -3,6 +3,7 @@ package practice.docker.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -10,7 +11,7 @@ import javax.persistence.*;
 public class PostEntity {
     @Id
     @GeneratedValue
-    @Column(name = "id", nullable = false)
+    @Column(name = "post_id", nullable = false)
     private Long id;
 
     @Column(name = "name")

@@ -19,6 +19,8 @@ public class PostController {
 
     @GetMapping("/post/{postId}")
     public PostEntity findOnePost(@PathVariable Long postId) {
-        return postRepository.findById(postId).get();
+        return postRepository.findById(postId).orElseThrow(
+                () -> new IllegalArgumentException("없음")
+        );
     }
 }
