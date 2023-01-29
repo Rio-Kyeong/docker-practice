@@ -7,12 +7,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "POST")
-public class PostEntity {
-    @Id
-    @GeneratedValue
-    @Column(name = "post_id", nullable = false)
-    private Long id;
-
+public class PostEntity extends BaseEntity{
     @Column(name = "name")
     private String name;
 }
