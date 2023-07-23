@@ -38,3 +38,7 @@ out/
 
 ### DOCKER ###
 /docker/mysql/data
+/docker/mongodb/data
+/docker/rabbitmq/data
+/docker/rabbitmq/logs
+/docker/redis/data

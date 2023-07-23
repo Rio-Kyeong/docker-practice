@@ -18,13 +18,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'com.fasterxml.uuid:java-uuid-generator:4.1.0'
+	implementation 'com.fasterxml.uuid:java-uuid-generator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
-	runtimeOnly 'mysql:mysql-connector-java'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
