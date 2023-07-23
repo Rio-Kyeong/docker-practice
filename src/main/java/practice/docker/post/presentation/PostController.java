@@ -1,9 +1,9 @@
-package practice.docker.presentation;
+package practice.docker.post.presentation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import practice.docker.domain.PostEntity;
-import practice.docker.infra.PostRepository;
+import practice.docker.post.domain.Post;
+import practice.docker.post.infrastructure.PostRepository;
 
 import java.util.UUID;
 
@@ -14,13 +14,13 @@ public class PostController {
     private final PostRepository postRepository;
 
     @PostMapping("/post")
-    public String savePost(@RequestBody PostEntity postEntity) {
-        PostEntity post = postRepository.save(postEntity);
+    public String savePost(@RequestBody Post postEntity) {
+        Post post = postRepository.save(postEntity);
         return post.getId().toString();
     }
 
     @GetMapping("/post/{postId}")
-    public PostEntity findOnePost(@PathVariable UUID postId) {
+    public Post findOnePost(@PathVariable UUID postId) {
         return postRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("없음")
         );
