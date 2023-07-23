@@ -1,7 +1,17 @@
 # docker-practice
-Docker-Compose.yml
+Docker Test
 
-## run
+## Development
+
+### Requirement
+- Java >= 11ga
+- docker >= 3
+
+### Run
 ```bash
-docker-compose --env-file docker/local.env up -d
+# db-up
+docker-compose up -d --force-recreate
+
+# db-down
+docker-compose down -v
 ```
