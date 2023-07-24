@@ -1,4 +1,4 @@
-package practice.docker.shared.core;
+package practice.docker.shared.core.domain;
 
 import com.fasterxml.uuid.Generators;
 import lombok.Getter;

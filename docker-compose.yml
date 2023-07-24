@@ -40,10 +40,10 @@ services:
 
   rabbitmq:
     image: rabbitmq:3.8-management
-    container_name: rabbitmq
+    container_name: message
     volumes:
-      - ./docker/rabbitmq/logs:/var/log/rabbitmq/
-      - ./docker/rabbitmq/data:/var/lib/rabbitmq/
+      - ./docker/message/logs:/var/log/message/
+      - ./docker/message/data:/var/lib/message/
     ports:
       - '5672:5672' # RabbitMQ 클라이언트 연결
       - '15672:15672' # RabbitMQ 웹 관리 콘솔 연결

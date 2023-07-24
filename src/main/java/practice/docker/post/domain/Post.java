@@ -1,7 +1,7 @@
 package practice.docker.post.domain;
 
 import lombok.*;
-import practice.docker.shared.core.BaseEntity;
+import practice.docker.shared.core.domain.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -12,6 +12,12 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017/mongo_db?authSource=admin
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
+
   jpa:
     hibernate:
       ddl-auto: none
@@ -23,3 +29,8 @@ spring:
 logging:
   level:
     org.hibernate.SQL: debug
+
+rabbitmq:
+  queue: sample.queue
+  exchange: sample.exchange
+  routing-key: sample.key
