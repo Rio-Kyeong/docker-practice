@@ -1,13 +1,15 @@
 package practice.docker.message.presentation;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import practice.docker.message.application.MessageService;
-import practice.docker.shared.core.dto.MessageDto;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,5 +28,15 @@ public class MessageController {
     public ResponseEntity<Object> sendMessage(@RequestBody MessageDto messageDto) {
         messageService.sendMessage(messageDto);
         return ResponseEntity.ok("Message sent to RabbitMQ!");
+    }
+
+    @ToString
+    @Getter
+    @Setter
+    public static class MessageDto {
+
+        private String title;
+
+        private String content;
     }
 }

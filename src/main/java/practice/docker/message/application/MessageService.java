@@ -6,7 +6,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import practice.docker.configuraion.properties.RabbitmqProperties;
-import practice.docker.shared.core.dto.MessageDto;
+import practice.docker.message.presentation.MessageController.MessageDto;
 
 @Slf4j
 @RequiredArgsConstructor
