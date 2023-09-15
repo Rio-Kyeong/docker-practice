@@ -56,8 +56,8 @@ public class RabbitmqConfiguration {
     @Bean
     public Binding sampleBinding(Queue queue, DirectExchange exchange) {
         return BindingBuilder.bind(queue)
-                            .to(exchange)
-                            .with(rabbitmqProperties.getRoutingKey());
+                .to(exchange)
+                .with(rabbitmqProperties.getRoutingKey());
     }
 
     /**
@@ -99,8 +99,8 @@ public class RabbitmqConfiguration {
     @Bean
     public MessageConverter jsonMessageConverter() {
         ObjectMapper mapper = JsonMapper.builder()
-                                        .addModule(new JavaTimeModule())
-                                        .build();
+                .addModule(new JavaTimeModule())
+                .build();
 
         return new Jackson2JsonMessageConverter(mapper);
     }

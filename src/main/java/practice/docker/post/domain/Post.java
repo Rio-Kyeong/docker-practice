@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 @ToString
 @Entity
 public class Post extends BaseEntity {
+
     @Column(name = "name")
     private String name;
 }
