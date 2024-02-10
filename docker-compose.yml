@@ -1,13 +1,34 @@
 version: '3.8'
 
 services:
+  server:
+    build:
+      dockerfile: DockerFile
+      context: ./
+    container_name: docker_server
+    restart: always
+    depends_on:
+      - mongo
+      - mysql
+      - rabbitmq
+      - redis
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/server/dumps:/dumps
+      - ./docker/server/logs:/logs
+      - ./src/main/resources/application.yml:/app/application.yml
+    environment:
+      GRADLE_OPTS: "-Xmx1g"
+      TZ: Asia/Seoul
+
   mysql:
-    container_name: mysql_db
-    image: mysql:8.0
+    container_name: docker_server_mysql_db
+    image: mysql:8.0.23
     platform: linux/amd64
+    restart: always
     ports:
       - "3306:3306"
-    restart: on-failure
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
       - ./docker/mysql/conf.d:/etc/mysql/conf.d
@@ -16,31 +37,29 @@ services:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: mysql_db
+      MYSQL_ROOT_PASSWORD: 1234
       MYSQL_USER: user
       MYSQL_PASSWORD: 1234
       TZ: Asia/Seoul
 
-  mongodb:
-    container_name: mongo_db
-    image: mongo:4.2.1
+  mongo:
+    container_name: docker_server_mongo_db
+    image: mongo:4.2.24
+    restart: always
     ports:
       - "27017:27017"
-    restart: on-failure
     volumes:
       - ./docker/mongodb/data:/data/db
       - ./docker/mongodb/initdb.d/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: 1234
-      MONGO_INITDB_USERNAME: user
-      MONGO_INITDB_PASSWORD: 1234
-      MONGO_INITDB_DATABASE: mongo_db
+      MONGO_INITDB_DATABASE: mongo
 
   rabbitmq:
     image: rabbitmq:3.8-management
-    container_name: message
+    container_name: docker_server_rabbitmq
     volumes:
       - ./docker/message/logs:/var/log/message/
       - ./docker/message/data:/var/lib/message/
@@ -49,11 +68,12 @@ services:
       - '15672:15672' # RabbitMQ 웹 관리 콘솔 연결
     environment:
       RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: admin
+      RABBITMQ_DEFAULT_PASS: 1234
+      TZ: Asia/Seoul
 
   redis:
     image: redis
-    container_name: redis
+    container_name: docker_server_redis
     hostname: redis
     volumes:
       - ./docker/redis/data:/data
