@@ -38,8 +38,10 @@ out/
 .vscode/
 
 ### DOCKER ###
-/docker/mysql/data
-/docker/mongodb/data
-/docker/rabbitmq/data
+/docker/mysql/db
+/docker/mongodb/db
+/docker/rabbitmq/lib
 /docker/rabbitmq/logs
 /docker/redis/data
+/docker/server/dumps
+/docker/server/logs
