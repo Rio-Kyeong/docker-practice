@@ -3,7 +3,7 @@ version: '3.8'
 services:
   server:
     build:
-      dockerfile: DockerFile
+      dockerfile: Dockerfile
       context: ./
     container_name: docker_server
     restart: always
@@ -17,7 +17,6 @@ services:
     volumes:
       - ./docker/server/dumps:/dumps
       - ./docker/server/logs:/logs
-      - ./src/main/resources/application.yml:/app/application.yml
     environment:
       GRADLE_OPTS: "-Xmx1g"
       TZ: Asia/Seoul
@@ -55,7 +54,9 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: 1234
-      MONGO_INITDB_DATABASE: mongo
+      MONGO_NON_ROOT_USERNAME: user
+      MONGO_NON_ROOT_PASSWORD: 1234
+      MONGO_INITDB_DATABASE: mongo_db
 
   rabbitmq:
     image: rabbitmq:3.8-management

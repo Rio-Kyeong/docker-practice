@@ -1,4 +1,4 @@
-mongo -- "pg" <<EOF
+mongo "mongo_db" <<EOF
     var rootUser = 'admin';
     var rootPassword = '1234';
     var admin = db.getSiblingDB('admin');
