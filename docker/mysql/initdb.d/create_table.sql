@@ -10,10 +10,12 @@ CREATE TABLE `mysql_db`.`orders`
 
 CREATE TABLE `mysql_db`.`post`
 (
-    `id`         binary(16)  NOT NULL COMMENT '게시글 ID',
-    `title`      VARCHAR(45) NULL COMMENT '게시글 명',
-    `created_at` DATETIME    NULL DEFAULT NOW() COMMENT 'DB 데이터 최초 생성 일시',
-    `updated_at` DATETIME    NULL DEFAULT NOW() COMMENT 'DB 데이터 최종 수정 일시',
+    `id`         BINARY(16)   NOT NULL COMMENT '게시글 ID',
+    `user_id`    INT(11)      NULL COMMENT '고객 ID',
+    `title`      VARCHAR(45)  NULL COMMENT '게시글 명',
+    `contents`   VARCHAR(200) NULL COMMENT '게시글 내용',
+    `created_at` DATETIME     NULL DEFAULT NOW() COMMENT '데이터 최초 생성 일시',
+    `updated_at` DATETIME     NULL DEFAULT NOW() COMMENT '데이터 최종 수정 일시',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='게시글';

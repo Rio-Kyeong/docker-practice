@@ -26,9 +26,14 @@ public class PostDto {
         @NotBlank(message = "post title cannot be empty or null")
         private String title;
 
-        public PostEntity toEntity() {
+        @NotBlank(message = "post contents cannot be empty or null")
+        private String contents;
+
+        public PostEntity toEntity(int userId) {
             return PostEntity.builder()
                 .title(this.title)
+                .contents(this.contents)
+                .userId(userId)
                 .build();
         }
     }
@@ -39,20 +44,21 @@ public class PostDto {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class Response {
+    public static class ReadResponse {
 
         private UUID id;
+        private int userId;
         private String title;
+        private String contents;
         private LocalDateTime createdAt;
-        private LocalDateTime updatedAt;
 
-        public static Response of(PostEntity postEntity) {
-            return ModelMapperUtil.modelMapper().map(postEntity, Response.class);
+        public static ReadResponse of(PostEntity postEntity) {
+            return ModelMapperUtil.modelMapper().map(postEntity, ReadResponse.class);
         }
 
-        public static List<Response> of(List<PostEntity> postEntityList) {
+        public static List<ReadResponse> of(List<PostEntity> postEntityList) {
             return postEntityList.stream()
-                .map(Response::of)
+                .map(ReadResponse::of)
                 .collect(Collectors.toList());
         }
     }

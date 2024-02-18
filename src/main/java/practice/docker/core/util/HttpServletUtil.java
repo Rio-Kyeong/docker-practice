@@ -1,12 +1,15 @@
 package practice.docker.core.util;
 
+import java.net.URI;
 import java.util.Optional;
+import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HttpServletUtil {
@@ -45,6 +48,16 @@ public class HttpServletUtil {
             .ofNullable(getHttpServletRequest())
             .map(request -> request.getRequestURI() + (request.getQueryString() != null ? "?" + request.getQueryString() : ""))
             .orElse(null);
+    }
+
+    /**
+     * 현재 요청의 URI를 기반으로 postId를 받아와서 URI를 생성
+     */
+    public static URI createUriWithPostIdFromCurrentRequest(UUID newPostId) {
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{postId}")
+            .buildAndExpand(newPostId.toString())
+            .toUri();
     }
 
 

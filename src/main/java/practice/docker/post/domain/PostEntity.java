@@ -18,6 +18,12 @@ import practice.docker.core.domain.entity.BaseEntity;
 @Entity(name = "post")
 public class PostEntity extends BaseEntity {
 
+    @Column(name = "user_id", nullable = false)
+    private int userId;
+
     @Column(name = "title", nullable = false, length = 45)
     private String title;
+
+    @Column(name = "contents", nullable = false, length = 200)
+    private String contents;
 }

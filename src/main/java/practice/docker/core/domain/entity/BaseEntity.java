@@ -18,6 +18,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 
+    /**
+     * UUID 는 36자로 VARCHAR 타입으로 저장하게 되면 BIGINT 타입보다 많은 저장 공간을 필요로 한다. 그렇기 때문에 UUID 를 사용한 컬럼의 저장 공간을 최소화하기 위해 해당 컬럼을 BINARY(16) 타입으로 지정하도록 한다. 다만
+     * BINARY 타입이기 때문에 직접 컬럼을 조회할 때는 BIN_TO_UUID 를 통해 조회해야 human-readable 한 값을 얻을 수 있다.
+     */
     @Id
     @Column(columnDefinition = "BINARY(16)")
     protected UUID id;

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import practice.docker.post.domain.PostEntity;
+import practice.docker.post.error.PostErrorCode;
 import practice.docker.post.infrastructure.PostRepository;
 import practice.docker.post.presentation.dto.PostDto;
 
@@ -16,18 +17,20 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional
-    public void savePost(PostDto.CreateRequest createRequest) {
-        postRepository.save(createRequest.toEntity());
+    public UUID savePost(PostDto.CreateRequest createRequest, int userId) {
+        PostEntity savePostEntity = postRepository.save(createRequest.toEntity(userId));
+
+        return savePostEntity.getId();
     }
 
-    public PostDto.Response findOnePost(UUID postId) {
-        if (postId == null) {
-            throw new IllegalArgumentException("Post ID cannot be null.");
+    public PostDto.ReadResponse findOnePost(UUID postId, int userId) {
+        PostEntity postEntity = postRepository.findById(postId)
+            .orElseThrow(PostErrorCode.POST_NOT_FOUND::toException);
+
+        if (postEntity.getUserId() != userId) {
+            throw PostErrorCode.NOT_MATCH_USER_POST.toException();
         }
 
-        PostEntity postEntity = postRepository.findById(postId).orElseThrow(
-            () -> new IllegalArgumentException(String.format("No post found with ID %s.", postId)));
-
-        return PostDto.Response.of(postEntity);
+        return PostDto.ReadResponse.of(postEntity);
     }
 }
