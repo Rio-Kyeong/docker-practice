@@ -1,6 +1,8 @@
 package practice.docker.post.presentation.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -24,9 +26,11 @@ public class PostDto {
     public static class CreateRequest {
 
         @NotBlank(message = "post title cannot be empty or null")
+        @Schema(description = "게시글 명", example = "게시글 제목", requiredMode = RequiredMode.REQUIRED)
         private String title;
 
         @NotBlank(message = "post contents cannot be empty or null")
+        @Schema(description = "게시글 내용", example = "게시글 내용", requiredMode = RequiredMode.REQUIRED)
         private String contents;
 
         public PostEntity toEntity(int userId) {
@@ -46,10 +50,19 @@ public class PostDto {
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class ReadResponse {
 
-        private UUID id;
+        @Schema(description = "게시글 ID", example = "11eecefd-f24a-3049-b579-9fea36fac2b2")
+        private UUID postId;
+
+        @Schema(description = "고객 ID", example = "12345678")
         private int userId;
+
+        @Schema(description = "게시글 명", example = "게시글 제목")
         private String title;
+
+        @Schema(description = "게시글 내용", example = "게시글 내용")
         private String contents;
+
+        @Schema(description = "데이터 최초 생성 일시", example = "2024-02-19T17:07:38")
         private LocalDateTime createdAt;
 
         public static ReadResponse of(PostEntity postEntity) {
