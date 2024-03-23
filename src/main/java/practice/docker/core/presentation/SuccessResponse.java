@@ -4,6 +4,7 @@ package practice.docker.core.presentation;
 import static practice.docker.core.util.HttpServletUtil.getCustomHttpStatusCode;
 import static practice.docker.core.util.HttpServletUtil.getUrlAndQueryString;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -27,6 +28,7 @@ public class SuccessResponse<T> {
     private boolean ok;
 
     @Schema
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T result;
 
     @Builder
