@@ -1,4 +1,4 @@
-package practice.docker.message.application;
+package practice.docker.rabbitmq.application;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import practice.docker.configuraion.properties.RabbitmqProperties;
-import practice.docker.message.presentation.MessageController.MessageDto;
+import practice.docker.rabbitmq.presentation.MessageController.MessageDto;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -23,7 +23,7 @@ public class MessageService {
      * @param messageDto 발행할 메시지의 DTO 객체
      */
     public void sendMessage(MessageDto messageDto) {
-        log.info("message sent: {}", messageDto.toString());
+        log.info("rabbitmq sent: {}", messageDto.toString());
         rabbitTemplate.convertAndSend(rabbitmqProperties.getExchange(), rabbitmqProperties.getRoutingKey(), messageDto);
     }
 
@@ -34,6 +34,6 @@ public class MessageService {
      */
     @RabbitListener(queues = "${sample-rabbitmq.queue}")
     public void receiveMessage(MessageDto messageDto) {
-        log.info("Received message: {}", messageDto.toString());
+        log.info("Received rabbitmq: {}", messageDto.toString());
     }
 }
