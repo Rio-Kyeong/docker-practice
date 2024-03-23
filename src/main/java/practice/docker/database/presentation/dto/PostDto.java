@@ -1,4 +1,4 @@
-package practice.docker.post.presentation.dto;
+package practice.docker.database.presentation.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import practice.docker.core.util.ModelMapperUtil;
-import practice.docker.post.domain.PostEntity;
+import practice.docker.database.domain.PostEntity;
 
 public class PostDto {
 

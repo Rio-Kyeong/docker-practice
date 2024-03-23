@@ -1,4 +1,4 @@
-package practice.docker.post.error;
+package practice.docker.database.error;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package practice.docker.post.domain;
+package practice.docker.database.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

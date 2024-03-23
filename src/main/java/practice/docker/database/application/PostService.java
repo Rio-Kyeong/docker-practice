@@ -1,13 +1,13 @@
-package practice.docker.post.application;
+package practice.docker.database.application;
 
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import practice.docker.post.domain.PostEntity;
-import practice.docker.post.error.PostErrorCode;
-import practice.docker.post.infrastructure.PostRepository;
-import practice.docker.post.presentation.dto.PostDto;
+import practice.docker.database.domain.PostEntity;
+import practice.docker.database.error.PostErrorCode;
+import practice.docker.database.infrastructure.PostRepository;
+import practice.docker.database.presentation.dto.PostDto;
 
 @Service
 @Transactional(readOnly = true)

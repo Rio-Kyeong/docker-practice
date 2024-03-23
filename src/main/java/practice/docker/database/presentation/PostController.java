@@ -1,4 +1,4 @@
-package practice.docker.post.presentation;
+package practice.docker.database.presentation;
 
 import static practice.docker.core.util.HttpServletUtil.createUriWithPostIdFromCurrentRequest;
 
@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import practice.docker.core.presentation.SuccessResponse;
-import practice.docker.post.application.PostService;
-import practice.docker.post.presentation.dto.PostDto;
-import practice.docker.post.presentation.dto.PostDto.ReadResponse;
+import practice.docker.database.application.PostService;
+import practice.docker.database.presentation.dto.PostDto;
+import practice.docker.database.presentation.dto.PostDto.ReadResponse;
 
 @RestController
 @RequestMapping("/users/{userId}/post")
