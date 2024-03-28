@@ -13,37 +13,31 @@ public class SystemExceptionHandler {
 
     @ExceptionHandler(DomainException.class)
     public ResponseEntity<ErrorResponse> handleDomainException(DomainException e) {
-        HttpStatus currentHttpStatus = e.getHttpStatus();
         ErrorResponse response = ErrorResponse.init()
-            .statusCode(currentHttpStatus.value())
             .exception(e)
             .build();
 
-        return ResponseEntity.status(currentHttpStatus)
+        return ResponseEntity.status(e.getHttpStatus())
             .body(response);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentValidException(MethodArgumentNotValidException e) {
-        HttpStatus currentHttpStatus = determineHttpStatus(e);
         ErrorResponse response = ErrorResponse.init()
-            .statusCode(currentHttpStatus.value())
             .exception(e)
             .build();
 
-        return ResponseEntity.status(currentHttpStatus)
+        return ResponseEntity.status(determineHttpStatus(e))
             .body(response);
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception e) {
-        HttpStatus currentHttpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
         ErrorResponse response = ErrorResponse.init()
-            .statusCode(currentHttpStatus.value())
             .exception(e)
             .build();
 
-        return ResponseEntity.status(currentHttpStatus)
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
             .body(response);
     }
 

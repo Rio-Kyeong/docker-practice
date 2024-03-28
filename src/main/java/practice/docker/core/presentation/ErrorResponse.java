@@ -12,17 +12,14 @@ import practice.docker.core.util.TimeUtil;
 @Getter
 public class ErrorResponse {
 
-    @Schema(example = "500")
-    private int statusCode;
-
-    @Schema(example = "2023-09-30T00:03:24Z")
-    private String timeStamp;
+    @Schema(example = "false", defaultValue = "ok")
+    private boolean ok;
 
     @Schema(example = "/{urlPath}")
     private String path;
 
-    @Schema(example = "false", defaultValue = "ok")
-    private boolean ok;
+    @Schema(example = "2023-09-30T00:03:24Z")
+    private String timeStamp;
 
     @Schema
     private Error error;
@@ -39,11 +36,10 @@ public class ErrorResponse {
     }
 
     @Builder(builderClassName = "Init", builderMethodName = "init")
-    public ErrorResponse(int statusCode, Exception exception) {
-        this.timeStamp = TimeUtil.toString(ZonedDateTime.now(ZoneOffset.UTC));
-        this.path = getUrlAndQueryString();
-        this.statusCode = statusCode;
+    public ErrorResponse(Exception exception) {
         this.ok = false;
+        this.path = getUrlAndQueryString();
+        this.timeStamp = TimeUtil.toString(ZonedDateTime.now(ZoneOffset.UTC));
         this.error = Error.builder()
             .message(exception.getMessage())
             .stack(convertStackTraceToStringArray(exception, 10))
