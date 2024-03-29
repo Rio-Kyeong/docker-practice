@@ -1,10 +1,12 @@
 package practice.docker.core.util;
 
 import java.net.URI;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -22,22 +24,6 @@ public class HttpServletUtil {
             .ofNullable(getHttpServletRequest())
             .map(HttpServletRequest::getMethod)
             .orElse(null);
-    }
-
-    /**
-     * 현재 HTTP 메서드가 POST인 경우 201을, GET인 경우 200을 반환
-     */
-    public static int getCustomHttpStatusCode() {
-        HttpServletRequest request = getHttpServletRequest();
-        if (request != null) {
-            String httpMethod = getHttpMethod();
-            if ("POST".equalsIgnoreCase(httpMethod)) {
-                return HttpServletResponse.SC_CREATED; // HTTP 상태 코드 201 (Created) for POST method
-            } else if ("GET".equalsIgnoreCase(httpMethod)) {
-                return HttpServletResponse.SC_OK; // HTTP 상태 코드 200 (OK) for GET method
-            }
-        }
-        return HttpServletResponse.SC_OK; // 기본적으로 OK 상태 코드를 반환합니다.
     }
 
     /**
@@ -60,6 +46,26 @@ public class HttpServletUtil {
             .toUri();
     }
 
+    /**
+     * HTTP 요청의 헤더를 포함하는 Map<String, String>을 반환
+     */
+    public static Map<String, String> requestToHeaderMap() {
+        HttpServletRequest request = getHttpServletRequest();
+        if (request == null) {
+            return new HashMap<>();
+        }
+        Map<String, String> headerMap = new HashMap<>();
+        Enumeration<String> headerNames = request.getHeaderNames();
+        if (headerNames == null) {
+            return new HashMap<>();
+        }
+        while (headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            String headerValue = request.getHeader(headerName);
+            headerMap.put(headerName, headerValue);
+        }
+        return headerMap;
+    }
 
     /**
      * 현재 요청을 처리하는 스레드의 RequestContextHolder에서 ServletRequestAttributes를 가져와서 현재의 HttpServletRequest 객체를 반환

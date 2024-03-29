@@ -6,10 +6,7 @@ spring:
     password: 1234
   data:
     mongodb:
-      host: docker_server_mongo_db
-      port: 27017
-      authentication-database: admin
-      database: mongo_db
+      uri: mongodb://admin:1234@docker_server_mongo_db:27017/mongo_db?authSource=admin&authMechanism=SCRAM-SHA-1
   rabbitmq:
     host: docker_server_rabbitmq
     port: 5672

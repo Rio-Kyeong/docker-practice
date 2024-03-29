@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import practice.docker.core.presentation.SuccessResponse;
+import practice.docker.core.util.logging.ApiLogging;
 import practice.docker.database.application.PostService;
 import practice.docker.database.presentation.dto.PostDto;
 import practice.docker.database.presentation.dto.PostDto.ReadResponse;
@@ -34,6 +35,7 @@ public class PostController {
     @ApiResponses({
         @ApiResponse(responseCode = "201", description = "게시글 생성 성공")
     })
+    @ApiLogging
     @PostMapping
     public ResponseEntity<SuccessResponse<Object>> savePost(
         @Parameter(description = "고객 ID", example = "12345678", required = true) @PathVariable int userId,
@@ -51,6 +53,7 @@ public class PostController {
         @ApiResponse(responseCode = "400", description = "입력된 회원과 찜 목록의 회원이 불일치"),
         @ApiResponse(responseCode = "404", description = "게시글 정보 없음")
     })
+    @ApiLogging
     @GetMapping("/{postId}")
     public ResponseEntity<SuccessResponse<ReadResponse>> findOnePost(
         @Parameter(description = "고객 ID", example = "12345678", required = true) @PathVariable int userId,
